@@ -1,17 +1,21 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link :to="{ name: 'Home' }">Home</router-link> |
+    <router-link :to="{ name: 'Books' }">Books</router-link> |
+    <router-link :to="{ name: 'About' }">About</router-link>
   </div>
   <router-view />
 </template>
 
 <script>
+// Vue
 import { useStore } from "vuex";
 import { ref } from "@vue/reactivity";
-import DatabaseManager from "@/database/DatabaseManager.js";
-let databaseManager = ref(null); // reference to the databaseManager that handles database operations
-export { databaseManager }; // export databaseManager reference to expose it to other components
+
+// Database Manager
+import DatabaseManager from "@/database/DatabaseManager.js"; // Import the component
+let databaseManager = ref(null); // Reference to the databaseManager that handles database operations
+export { databaseManager }; // Export databaseManager reference to expose it to other components
 
 export default {
   name: "App",
@@ -19,16 +23,21 @@ export default {
   setup() {
     const store = useStore();
 
-    // Initialize the database manager
+    // DATABASE MANAGER: INITIALIZE ---------------------------------------------------------------------------------------------
     databaseManager = new DatabaseManager({
       server: store.state.databaseAPI.server,
-      port: store.state.databaseAPI.port
+      port: store.state.databaseAPI.port,
     });
   },
 };
 </script>
 
 <style lang="scss">
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

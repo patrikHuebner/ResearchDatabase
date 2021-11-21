@@ -16,10 +16,16 @@ export default createStore({
         console.log(log);
       }
     },
+    CONSOLE_ERROR(state, { log }) {
+      console.error(log);
+    },
   },
   actions: {
     console({ commit }, { log }) {
       commit('CONSOLE_LOG', { log });
+    },
+    error({ commit }, { log }) {
+      commit('CONSOLE_ERROR', { log });
     },
   },
   modules: {
