@@ -4,23 +4,26 @@
   <div class="bookList">
     <ul>
       <li v-for="(book, index) in books" :key="index">
-        <img
-          v-if="book.COVER == 'NULL'"
-          :src="pathToImages + '_noCover.jpg'"
-          :alt="book.TITLE"
-        />
-        <img v-else :src="pathToImages + book.COVER" :alt="book.TITLE" />
+        <div class="book_container">
+          <img
+            v-if="book.COVER == 'NULL'"
+            :src="pathToImages + '_noCover.jpg'"
+            :alt="book.TITLE"
+          />
+          <img v-else :src="pathToImages + book.COVER" :alt="book.TITLE" />
 
-        <div class="book_details">
-          <div class="book_author">{{ fullNames(book.AUTHOR) }}</div>
-          <div class="book_title">{{ book.TITLE }}</div>
-          <div class="book_subtitle">{{ book.SUBTITLE }}</div>
-          <div class="book_publishingDetails">
-            {{ book.PLACE_OF_PUBLICATION
-            }}<span v-if="book.PLACE_OF_PUBLICATION">,</span>
-            {{ book.YEAR_OF_PUBLICATION }}<br />{{ book.PUBLISHER }}
+          <div class="book_details">
+            <div class="book_author">{{ fullNames(book.AUTHOR) }}</div>
+            <div class="book_title">{{ book.TITLE }}</div>
+            <div class="book_subtitle">{{ book.SUBTITLE }}</div>
+            <div class="book_publishingDetails">
+              {{ book.PLACE_OF_PUBLICATION
+              }}<span v-if="book.PLACE_OF_PUBLICATION">,</span>
+              {{ book.YEAR_OF_PUBLICATION }}<br />{{ book.PUBLISHER }}
+            </div>
           </div>
         </div>
+        <div class="copyCitation">Copy citation</div>
       </li>
     </ul>
   </div>
@@ -40,8 +43,8 @@ export default {
       for (let index in authors) {
         names += authors[index].firstName + " " + authors[index].lastName;
         // Add commas for each author except the last one
-        if (authors.length > 0 && index < authors.length-1) {
-          names+=', '
+        if (authors.length > 0 && index < authors.length - 1) {
+          names += ", ";
         }
       }
 
@@ -70,6 +73,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/styles/theming.scss";
+@import "@/assets/styles/theming/colorDefinitions.scss";
+
 .bookList {
   ul {
     display: flex;
@@ -77,24 +83,36 @@ export default {
     padding: 0;
   }
   li {
+    @include theme(color, primaryColor);
+
     list-style-type: none;
     text-align: left;
     display: flex;
-    padding: 10px 10px;
+    flex-direction: column;
+    padding: 20px 20px 10px 20px;
     cursor: pointer;
-    max-width: 30vw;
-    margin: 20px;
-    border: 1px solid #000;
+    max-width: 33vw;
+    margin: 20px 20px 20px 0;
+    @include theme(border, backgroundLight, 1px solid);
+    @include theme(background-color, backgroundLight);
     border-radius: 10px;
 
     &:hover {
-      background: rgb(240, 240, 240);
+      @include theme(border, primaryColor, 1px solid);
+    }
+
+    .book_container {
+      display: flex;
+      flex-direction: row;
     }
 
     img {
       height: 200px;
       margin: 0 20px 0 0;
       border-radius: 10px;
+
+      -webkit-box-shadow: 0px 12px 35px 0px rgba(0, 0, 0, 0.71);
+      box-shadow: 0px 12px 35px 0px rgba(0, 0, 0, 0.71);
     }
 
     .book_author {
@@ -112,19 +130,20 @@ export default {
     .book_publishingDetails {
       font-size: 12px;
     }
+    .copyCitation {
+      align-self: flex-end;
+      padding: 5px;
+      background: color(lightGray);
+      color: color(black);
+      font-size: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        background: color(green);
+        color: color(white);
+      }
+    }
   }
 }
-
-// .bookElement {
-//   margin: 20px;
-
-//   border: 1px solid #000;
-//   border-radius: 10px;
-
-//   img {
-//     height: 200px;
-//     margin: 0 20px 0 0;
-//     border-radius: 10px;
-//   }
-// }
 </style>

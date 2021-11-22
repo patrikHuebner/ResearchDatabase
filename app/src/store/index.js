@@ -7,6 +7,9 @@ export default createStore({
       server: 'http://localhost',
       port: 3000,
     },
+    theme: {
+      mode: "dark"
+    },
   },
   getters: {
   },
@@ -19,6 +22,10 @@ export default createStore({
     CONSOLE_ERROR(state, { log }) {
       console.error(log);
     },
+    UPDATE_STATE(state, { parent, key, value }) {
+      state[parent][key] = value;
+    },
+
   },
   actions: {
     console({ commit }, { log }) {
@@ -27,6 +34,10 @@ export default createStore({
     error({ commit }, { log }) {
       commit('CONSOLE_ERROR', { log });
     },
+    updateState({ commit }, { parent, key, value }) {
+      commit('UPDATE_STATE', { parent, key, value });
+    },
+
   },
   modules: {
   }

@@ -1,10 +1,8 @@
 <template>
-  <div id="nav">
-    <router-link :to="{ name: 'Home' }">Home</router-link> |
-    <router-link :to="{ name: 'Books' }">Books</router-link> |
-    <router-link :to="{ name: 'About' }">About</router-link>
+  <div id="container">
+    <Navigation />
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <script>
@@ -17,9 +15,14 @@ import DatabaseManager from "@/database/DatabaseManager.js"; // Import the compo
 let databaseManager = ref(null); // Reference to the databaseManager that handles database operations
 export { databaseManager }; // Export databaseManager reference to expose it to other components
 
+// Navigation
+import Navigation from "@/components/Navigation.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    Navigation,
+  },
   setup() {
     const store = useStore();
 
@@ -31,31 +34,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-body {
-  margin: 0;
-  padding: 0;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>

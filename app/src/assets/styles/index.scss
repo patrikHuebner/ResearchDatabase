@@ -1,0 +1,20 @@
+// @import "fonts";
+@import "theming";
+
+html {
+    @include generateThemeVariables;
+}
+
+body {
+    font-family: Arial;
+
+    @include theme(background-color, backgroundColor);
+    @include theme(color, primaryColor);
+}
+
+a {
+    @include theme(color, primaryColor);
+    &:hover {
+        @include theme(color, primaryColorOn);
+    }
+}

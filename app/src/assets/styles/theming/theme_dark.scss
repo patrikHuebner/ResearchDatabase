@@ -1,0 +1,10 @@
+@import "./functions";
+
+$dark: (
+  backgroundColor: color(black),
+  backgroundSecondary: color(gray),
+  backgroundLight: color(lightBlack),
+  primaryColor: color(white),
+  primaryColorInverted: color(black),
+  primaryColorOn: color(green),
+);
